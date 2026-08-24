@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-dark: #121110;
+    --bg-card: #1c1a17;
+    --cream: #F5EFE4;
+    --cream-light: #FAF7F2;
+    --saffron: #FF5722;
+    --saffron-bright: #FF6E40;
+    --dhaba-red: #C62828;
+    --mustard: #E65100;
+    --yellow-accent: #F59E0B;
+    --gold: #D4AF37;
+    --dark-green: #1B4332;
+    --border-color: rgba(245, 239, 228, 0.15);
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--cream);
+    font-family: var(--font-body), sans-serif;
+    overflow-x: hidden;
+    selection-background-color: var(--saffron);
+    selection-color: var(--bg-dark);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Texture & Halftone Utilities */
+.bg-grain {
+  background-image: radial-gradient(rgba(245, 239, 228, 0.06) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+.bg-halftone {
+  background-image: radial-gradient(rgba(255, 87, 34, 0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+
+.paper-border {
+  border: 2px dashed rgba(245, 239, 228, 0.25);
+}
+
+.distressed-border {
+  border: 3px solid var(--cream);
+  box-shadow: 4px 4px 0px var(--saffron);
+}
+
+.distressed-border-red {
+  border: 3px solid var(--cream);
+  box-shadow: 4px 4px 0px var(--dhaba-red);
+}
+
+/* Rubber Stamp Styling */
+.stamp-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  letter-spacing: 0.05em;
+  box-shadow: 2px 2px 0px currentColor;
+}
+
+/* Marquee Animation */
+@keyframes marqueeLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 22s linear infinite;
+}
+
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 22s linear infinite;
+}
+
+/* Typography Utility Helpers */
+.font-display {
+  font-family: var(--font-display), IMPACT, sans-serif;
+}
+
+.font-serif-bold {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-body {
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--saffron);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dhaba-red);
 }
