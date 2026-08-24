@@ -1,104 +1,88 @@
 "use client";
 
 import { GOOGLE_REVIEWS, SAINIK_HOTEL_DATA } from "@/data/hotelData";
-import { Star, Quote, CheckCircle2, MessageSquare, ThumbsUp } from "lucide-react";
+import { Star, Quote, CheckCircle2, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ReviewsSection() {
-  const cardRotations = ["rotate-1", "-rotate-2", "rotate-2", "-rotate-1"];
-
   return (
-    <section id="reviews" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#1C1A17] relative bg-grain border-b-4 border-[#FF5722]">
+    <section id="reviews" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2] border-b border-[#1D1B18]/10">
       
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* Rating Hero Metric Bar */}
-        <div className="bg-[#121110] border-4 border-[#F5EFE4] p-8 shadow-[10px_10px_0px_#FF5722] mb-16 flex flex-col lg:flex-row items-center justify-between gap-8">
-          
-          <div className="flex items-center gap-6 flex-wrap justify-center lg:justify-start">
-            <div className="bg-[#FF5722] text-[#121110] p-4 border-2 border-[#F5EFE4] shadow-[4px_4px_0px_#F5EFE4] text-center">
-              <span className="text-5xl font-extrabold font-display leading-none block">
+        {/* Rating Hero Bar */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#1D1B18]/10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-[#C8522A] uppercase font-bold">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>GUEST EXPERIENCES</span>
+            </div>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#1D1B18] tracking-tight">
+              Customer Feedback
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-4 bg-[#F3ECE0]/80 px-5 py-3 rounded-xl border border-[#1D1B18]/10 shrink-0">
+            <div className="text-center pr-4 border-r border-[#1D1B18]/10">
+              <span className="font-display text-3xl font-bold text-[#1D1B18] leading-none block">
                 {SAINIK_HOTEL_DATA.metrics.rating}
               </span>
-              <span className="text-xs font-mono font-black uppercase">OUT OF 5</span>
+              <span className="text-[10px] font-mono font-bold text-[#7A6F64]">OUT OF 5</span>
             </div>
-
             <div>
-              <div className="flex text-[#F59E0B] mb-2 justify-center lg:justify-start">
+              <div className="flex text-amber-500 mb-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 fill-current stroke-[1.5]" />
+                  <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold font-display uppercase tracking-tight text-[#F5EFE4]">
-                {SAINIK_HOTEL_DATA.metrics.reviewsCount} GOOGLE REVIEWS
-              </h2>
-              <p className="font-mono text-xs text-[#F5EFE4]/70 mt-1">
-                AUTHENTIC FEEDBACK FROM REAL LOCAL DINERS IN CHIKHALI
+              <p className="font-mono text-xs font-bold text-[#1D1B18] uppercase">
+                {SAINIK_HOTEL_DATA.metrics.reviewsCount} Google Reviews
               </p>
             </div>
           </div>
-
-          {/* Badge Sticker */}
-          <div className="bg-[#C62828] text-[#F5EFE4] px-6 py-3 border-2 border-[#F5EFE4] shadow-[4px_4px_0px_#F5EFE4] font-mono text-xs font-black uppercase tracking-wider flex items-center gap-2 transform -rotate-1 shrink-0">
-            <CheckCircle2 className="w-5 h-5 text-[#F5EFE4]" />
-            <span>VERIFIED LOCAL FAVORITE</span>
-          </div>
-
         </div>
 
-        {/* Postcard Review Wall */}
+        {/* Refined Quote Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {GOOGLE_REVIEWS.map((rev, idx) => (
             <motion.div
               key={rev.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className={`p-6 bg-[#121110] border-3 border-[#F5EFE4] shadow-[8px_8px_0px_#FF5722] hover:shadow-[12px_12px_0px_#FF5722] hover:-translate-y-1 transition-all duration-300 transform ${cardRotations[idx % cardRotations.length]} flex flex-col justify-between`}
+              transition={{ delay: idx * 0.08 }}
+              className="p-8 rounded-2xl bg-[#F3ECE0]/50 border border-[#1D1B18]/10 flex flex-col justify-between space-y-6 hover:border-[#C8522A]/30 transition-colors"
             >
-              <div>
-                {/* Header */}
-                <div className="flex items-center justify-between border-b border-[#F5EFE4]/15 pb-4 mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#FF5722] text-[#121110] font-black font-display text-sm flex items-center justify-center border border-[#F5EFE4]">
-                      {rev.author.charAt(0)}
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold font-display text-base uppercase text-[#F5EFE4]">
-                        {rev.author}
-                      </h3>
-                      <span className="font-mono text-[10px] text-[#F5EFE4]/60 block">
-                        {rev.date}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex text-[#F59E0B]">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex text-amber-500">
                     {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
+                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
+                  <span className="font-mono text-[11px] font-bold text-[#C8522A] uppercase">
+                    {rev.tag}
+                  </span>
                 </div>
 
-                {/* Review Text */}
-                <div className="relative mb-6">
-                  <Quote className="w-8 h-8 text-[#FF5722]/30 absolute -top-2 -left-2 rotate-180" />
-                  <p className="font-mono text-sm text-[#F5EFE4] leading-relaxed relative z-10 pl-4 italic">
-                    &ldquo;{rev.text}&rdquo;
-                  </p>
-                </div>
+                <p className="font-display italic text-base sm:text-lg text-[#1D1B18] leading-relaxed">
+                  &ldquo;{rev.text}&rdquo;
+                </p>
               </div>
 
-              {/* Review Card Footer Tag */}
-              <div className="pt-3 border-t border-[#F5EFE4]/15 flex items-center justify-between text-xs font-mono">
-                <span className="text-[#FF5722] font-bold bg-[#FF5722]/10 px-2.5 py-0.5 border border-[#FF5722]/30">
-                  {rev.tag}
-                </span>
-                <span className="text-[#F5EFE4]/60 flex items-center gap-1 text-[11px]">
-                  <ThumbsUp className="w-3.5 h-3.5 text-[#FF5722]" />
-                  {rev.badge}
-                </span>
+              <div className="pt-4 border-t border-[#1D1B18]/10 flex items-center justify-between">
+                <div>
+                  <h3 className="font-display font-bold text-sm text-[#1D1B18]">
+                    {rev.author}
+                  </h3>
+                  <span className="font-mono text-[10px] text-[#7A6F64]">
+                    {rev.date} · Verified Google Diner
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-1 text-[11px] font-mono text-[#2D4030] font-bold bg-[#2D4030]/10 px-2.5 py-1 rounded-full">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>{rev.badge}</span>
+                </div>
               </div>
 
             </motion.div>

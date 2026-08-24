@@ -13,134 +13,119 @@ export default function HoursSection() {
     setStatus(getLiveOperationalStatus());
     const updateTime = () => {
       const now = new Date();
-      setCurrentTime(now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }));
+      setCurrentTime(now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));
       setStatus(getLiveOperationalStatus());
     };
 
     updateTime();
-    const interval = setInterval(updateTime, 1000);
+    const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[#1C1A17] relative bg-halftone border-b-4 border-[#FF5722]">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F4EFE6] border-b border-[#1D1B18]/10">
       
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-12">
         
-        <div className="bg-[#121110] border-4 border-[#F5EFE4] p-8 sm:p-12 shadow-[12px_12px_0px_#FF5722]">
-          
-          {/* Header & Live Status */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b-2 border-dashed border-[#F5EFE4]/20 mb-10">
+        {/* Header & Live Calculated Badge */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#1D1B18]/10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-[#C8522A] uppercase font-bold">
+              <Clock className="w-3.5 h-3.5" />
+              <span>HOURS & SERVICE SHIFTS</span>
+            </div>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#1D1B18] tracking-tight">
+              Operational Schedule
+            </h2>
+          </div>
+
+          {/* Live Status Pill */}
+          <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#1D1B18]/10 shadow-xs flex items-center gap-4">
+            <span
+              className={`w-3 h-3 rounded-full shrink-0 ${
+                status.isOpen ? "bg-emerald-600 animate-pulse" : "bg-amber-600"
+              }`}
+            />
             <div>
-              <div className="flex items-center gap-2 mb-2 font-mono text-xs font-bold text-[#FF5722] tracking-widest uppercase">
-                <Clock className="w-4 h-4" />
-                <span>DAILY OPERATIONAL SCHEDULE</span>
-              </div>
-              <h2 className="text-4xl sm:text-6xl font-extrabold uppercase font-display tracking-tight text-[#F5EFE4]">
-                TIMINGS & <span className="text-[#FF5722]">DELIVERY</span>
-              </h2>
-            </div>
-
-            {/* Live Calculated Badge */}
-            <div className="bg-[#1C1A17] border-3 border-[#F5EFE4] p-4 shadow-[4px_4px_0px_#F5EFE4] flex items-center gap-4">
-              <div className={`w-4 h-4 rounded-full ${status.isOpen ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
-              <div>
-                <span className="font-mono text-xs font-black uppercase text-[#FF5722] block">
-                  LIVE BROWSER STATUS
-                </span>
-                <span className="font-extrabold text-lg sm:text-xl font-display uppercase text-[#F5EFE4] block">
-                  {status.text}
-                </span>
-                <span className="font-mono text-xs text-[#F5EFE4]/70 block">
-                  {status.subtext} {currentTime && `(${currentTime})`}
-                </span>
-              </div>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#C8522A] block">
+                LIVE STATUS
+              </span>
+              <span className="font-display font-bold text-lg text-[#1D1B18] uppercase leading-tight block">
+                {status.text}
+              </span>
+              <span className="font-body text-xs text-[#7A6F64]">
+                {status.subtext} {currentTime && `· ${currentTime}`}
+              </span>
             </div>
           </div>
+        </div>
 
-          {/* Timing Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-            
-            {/* Lunch Shift */}
-            <div className="p-6 bg-[#1C1A17] border-2 border-[#F5EFE4]/30 hover:border-[#FF5722] shadow-[4px_4px_0px_rgba(245,239,228,0.1)] transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-[#FF5722] text-[#121110] font-black border border-[#F5EFE4]">
-                  <Sun className="w-6 h-6 stroke-[2.5]" />
-                </div>
-                <span className="font-mono text-xs font-bold text-[#FF5722] bg-[#FF5722]/10 px-2.5 py-1 border border-[#FF5722]/30">
-                  LUNCH SHIFT
-                </span>
-              </div>
-              <h3 className="text-2xl font-extrabold font-display uppercase text-[#F5EFE4] mb-2">
-                AFTERNOON SERVICE
-              </h3>
-              <p className="font-extrabold text-xl font-mono text-[#FF5722] mb-2">
-                11:00 AM – 4:00 PM
-              </p>
-              <p className="font-mono text-xs text-[#F5EFE4]/70">
-                Fresh Kolhapuri thalis, bhakri & rice served hot throughout lunchtime.
-              </p>
+        {/* 3 Timing Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Lunch Shift */}
+          <div className="p-8 bg-[#FAF7F2] rounded-2xl border border-[#1D1B18]/10 space-y-4 shadow-xs">
+            <div className="w-10 h-10 rounded-lg bg-[#C8522A]/10 text-[#C8522A] flex items-center justify-center">
+              <Sun className="w-5 h-5" />
             </div>
-
-            {/* Dinner Shift */}
-            <div className="p-6 bg-[#1C1A17] border-2 border-[#F5EFE4]/30 hover:border-[#FF5722] shadow-[4px_4px_0px_rgba(245,239,228,0.1)] transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-[#C62828] text-[#F5EFE4] font-black border border-[#F5EFE4]">
-                  <Moon className="w-6 h-6 stroke-[2.5]" />
-                </div>
-                <span className="font-mono text-xs font-bold text-[#FF5722] bg-[#FF5722]/10 px-2.5 py-1 border border-[#FF5722]/30">
-                  DINNER SHIFT
-                </span>
-              </div>
-              <h3 className="text-2xl font-extrabold font-display uppercase text-[#F5EFE4] mb-2">
-                EVENING SERVICE
-              </h3>
-              <p className="font-extrabold text-xl font-mono text-[#FF5722] mb-2">
-                7:00 PM – 11:00 PM
-              </p>
-              <p className="font-mono text-xs text-[#F5EFE4]/70">
-                Reopens at 7:00 PM for open-air outdoor seating dinner & sizzled dishes.
-              </p>
-            </div>
-
-            {/* Delivery Slot */}
-            <div className="p-6 bg-[#1C1A17] border-2 border-[#F5EFE4]/30 hover:border-[#FF5722] shadow-[4px_4px_0px_rgba(245,239,228,0.1)] transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-[#1B4332] text-[#F5EFE4] font-black border border-[#F5EFE4]">
-                  <Truck className="w-6 h-6 stroke-[2.5]" />
-                </div>
-                <span className="font-mono text-xs font-bold text-[#FF5722] bg-[#FF5722]/10 px-2.5 py-1 border border-[#FF5722]/30">
-                  DOORSTEP DELIVERY
-                </span>
-              </div>
-              <h3 className="text-2xl font-extrabold font-display uppercase text-[#F5EFE4] mb-2">
-                HOME DELIVERY SLOT
-              </h3>
-              <p className="font-extrabold text-xl font-mono text-[#FF5722] mb-2">
-                7:00 PM – 8:30 PM
-              </p>
-              <p className="font-mono text-xs text-[#F5EFE4]/70">
-                Direct phone delivery service available within Chikhali & Thermax Chowk areas.
-              </p>
-            </div>
-
+            <span className="font-mono text-[11px] font-bold text-[#C8522A] uppercase tracking-wider block">
+              LUNCH SERVICE
+            </span>
+            <h3 className="font-display font-bold text-2xl text-[#1D1B18]">
+              11:00 AM – 4:00 PM
+            </h3>
+            <p className="font-body text-xs text-[#7A6F64] leading-relaxed">
+              Fresh Kolhapuri thalis, bhakri & rice served hot throughout lunchtime.
+            </p>
           </div>
 
-          {/* Operating Note Banner */}
-          <div className="bg-[#FF5722] text-[#121110] p-4 border-2 border-[#F5EFE4] font-mono text-xs font-black uppercase tracking-wider flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>OPEN ALL 7 DAYS A WEEK (MONDAY TO SUNDAY)</span>
+          {/* Dinner Shift */}
+          <div className="p-8 bg-[#FAF7F2] rounded-2xl border border-[#1D1B18]/10 space-y-4 shadow-xs">
+            <div className="w-10 h-10 rounded-lg bg-[#2D4030]/10 text-[#2D4030] flex items-center justify-center">
+              <Moon className="w-5 h-5" />
             </div>
-            <a
-              href={SAINIK_HOTEL_DATA.contact.phoneTel}
-              className="hover:underline flex items-center gap-1 font-extrabold"
-            >
-              <Phone className="w-3.5 h-3.5 fill-current" />
-              <span>CALL 088119 94491 FOR TAKEAWAY</span>
-            </a>
+            <span className="font-mono text-[11px] font-bold text-[#2D4030] uppercase tracking-wider block">
+              DINNER SERVICE
+            </span>
+            <h3 className="font-display font-bold text-2xl text-[#1D1B18]">
+              7:00 PM – 11:00 PM
+            </h3>
+            <p className="font-body text-xs text-[#7A6F64] leading-relaxed">
+              Reopens at 7:00 PM for open-air outdoor seating dinner & sizzled dishes.
+            </p>
           </div>
 
+          {/* Delivery Slot */}
+          <div className="p-8 bg-[#FAF7F2] rounded-2xl border border-[#1D1B18]/10 space-y-4 shadow-xs">
+            <div className="w-10 h-10 rounded-lg bg-[#8C7764]/15 text-[#1D1B18] flex items-center justify-center">
+              <Truck className="w-5 h-5" />
+            </div>
+            <span className="font-mono text-[11px] font-bold text-[#1D1B18] uppercase tracking-wider block">
+              LOCAL DELIVERY SHIFT
+            </span>
+            <h3 className="font-display font-bold text-2xl text-[#1D1B18]">
+              7:00 PM – 8:30 PM
+            </h3>
+            <p className="font-body text-xs text-[#7A6F64] leading-relaxed">
+              Direct phone delivery service available within Chikhali & Thermax Chowk areas.
+            </p>
+          </div>
+
+        </div>
+
+        {/* Operating Note Banner */}
+        <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#1D1B18]/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-[#1D1B18]">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-[#C8522A]" />
+            <span className="font-semibold">OPEN ALL 7 DAYS A WEEK (MONDAY TO SUNDAY)</span>
+          </div>
+          <a
+            href={SAINIK_HOTEL_DATA.contact.phoneTel}
+            className="text-[#C8522A] hover:underline font-bold flex items-center gap-1.5"
+          >
+            <Phone className="w-3.5 h-3.5 fill-current" />
+            <span>CALL 088119 94491 FOR TAKEAWAY</span>
+          </a>
         </div>
 
       </div>

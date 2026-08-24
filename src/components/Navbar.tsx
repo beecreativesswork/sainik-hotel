@@ -30,38 +30,34 @@ export default function Navbar() {
   const navLinks = [
     { name: "MENU", href: "#menu" },
     { name: "ABOUT", href: "#about" },
-    { name: "EXPERIENCE", href: "#experience" },
-    { name: "LOCATION", href: "#location" },
     { name: "REVIEWS", href: "#reviews" },
+    { name: "LOCATION", href: "#location" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#121110]/95 backdrop-blur-md py-3 border-b border-[#F5EFE4]/15 shadow-xl"
-          : "bg-[#121110]/80 backdrop-blur-sm py-4 border-b border-[#F5EFE4]/10"
+          ? "bg-[#FAF7F2]/95 backdrop-blur-md py-3 border-b border-[#1D1B18]/10 shadow-xs"
+          : "bg-[#FAF7F2]/80 backdrop-blur-xs py-4.5 border-b border-[#1D1B18]/08"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
+
           {/* Brand Logo / Typography */}
           <a
             href="#"
-            className="group flex items-center gap-3 transition-transform duration-200 hover:scale-105"
+            className="group flex flex-col"
           >
-            <div className="bg-[#FF5722] text-[#121110] font-extrabold px-3 py-1 text-xl sm:text-2xl tracking-tighter border-2 border-[#F5EFE4] shadow-[3px_3px_0px_#F5EFE4] transform -rotate-1 group-hover:rotate-0 transition-transform">
-              SAINIK
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-lg tracking-widest text-[#F5EFE4] uppercase leading-none font-display">
-                HOTEL
-              </span>
-              <span className="text-[10px] tracking-widest text-[#FF5722] font-mono font-bold uppercase mt-0.5">
-                CHIKHALI • PUNE
+            <div className="flex items-center gap-2">
+              <span className="font-display font-bold text-2xl sm:text-3xl tracking-tight text-[#1D1B18] group-hover:text-[#C8522A] transition-colors">
+                SAINIK HOTEL
               </span>
             </div>
+            <span className="text-[10px] font-mono tracking-widest text-[#7A6F64] uppercase font-semibold -mt-1">
+              CHIKHALI · PIMPRI-CHINCHWAD
+            </span>
           </a>
 
           {/* Center Navigation Links (Desktop) */}
@@ -70,32 +66,31 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-bold tracking-widest text-[#F5EFE4]/80 hover:text-[#FF5722] transition-colors relative py-1 group"
+                className="text-xs font-semibold tracking-widest text-[#1D1B18]/80 hover:text-[#C8522A] transition-colors relative py-1"
               >
                 {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF5722] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </nav>
 
-          {/* Right Section: Status Indicator & Phone CTA */}
-          <div className="hidden lg:flex items-center gap-5">
-            {/* Dynamic Status Badge */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C1A17] border border-[#F5EFE4]/20 text-xs font-mono">
+          {/* Right Section: Dynamic Status & Phone CTA */}
+          <div className="hidden md:flex items-center gap-5">
+            {/* Dynamic Open Status Badge */}
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3ECE0] border border-[#1D1B18]/10 text-xs font-mono text-[#1D1B18]">
               <span
-                className={`w-2.5 h-2.5 rounded-full ${
-                  status.isOpen ? "bg-emerald-500 animate-pulse" : "bg-amber-500"
+                className={`w-2 h-2 rounded-full ${
+                  status.isOpen ? "bg-emerald-600 animate-pulse" : "bg-amber-600"
                 }`}
               />
-              <span className="font-bold text-[#F5EFE4] uppercase">{status.text}</span>
+              <span className="font-semibold text-[11px] uppercase tracking-wider">{status.text}</span>
             </div>
 
             {/* Call Now Button */}
             <a
               href={SAINIK_HOTEL_DATA.contact.phoneTel}
-              className="group relative inline-flex items-center gap-2 bg-[#FF5722] text-[#121110] font-black text-sm px-5 py-2.5 uppercase tracking-wider border-2 border-[#F5EFE4] shadow-[3px_3px_0px_#F5EFE4] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#F5EFE4] transition-all"
+              className="inline-flex items-center gap-2 bg-[#C8522A] text-[#FAF7F2] hover:bg-[#B34520] font-semibold text-xs px-5 py-2.5 rounded-md uppercase tracking-wider transition-colors shadow-xs"
             >
-              <Phone className="w-4 h-4 fill-current" />
+              <Phone className="w-3.5 h-3.5 fill-current" />
               <span>CALL NOW</span>
             </a>
           </div>
@@ -103,14 +98,14 @@ export default function Navbar() {
           {/* Mobile Menu Trigger Button */}
           <div className="flex md:hidden items-center gap-3">
             {/* Small status dot for mobile */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#1C1A17] border border-[#F5EFE4]/20 text-[11px] font-mono rounded-full">
-              <span className={`w-2 h-2 rounded-full ${status.isOpen ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
-              <span className="font-bold">{status.isOpen ? "OPEN" : "CLOSED"}</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#F3ECE0] border border-[#1D1B18]/10 text-[11px] font-mono rounded-full text-[#1D1B18]">
+              <span className={`w-2 h-2 rounded-full ${status.isOpen ? "bg-emerald-600 animate-pulse" : "bg-amber-600"}`} />
+              <span className="font-bold text-[10px]">{status.isOpen ? "OPEN" : "CLOSED"}</span>
             </div>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 bg-[#1C1A17] text-[#F5EFE4] border-2 border-[#F5EFE4] shadow-[2px_2px_0px_#FF5722] active:translate-x-0.5"
+              className="p-2 text-[#1D1B18] hover:text-[#C8522A] transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
@@ -127,31 +122,31 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#161412] border-b-4 border-[#FF5722] overflow-hidden"
+            className="md:hidden bg-[#FAF7F2] border-b border-[#1D1B18]/10 overflow-hidden"
           >
-            <div className="px-6 py-8 space-y-6">
-              <div className="flex flex-col space-y-4 border-b border-[#F5EFE4]/15 pb-6">
+            <div className="px-6 py-6 space-y-5">
+              <div className="flex flex-col space-y-3 border-b border-[#1D1B18]/10 pb-5">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-xl font-black tracking-wider text-[#F5EFE4] hover:text-[#FF5722] flex items-center justify-between py-1"
+                    className="text-base font-semibold tracking-wider text-[#1D1B18] hover:text-[#C8522A] flex items-center justify-between py-1.5"
                   >
                     <span>{link.name}</span>
-                    <span className="text-[#FF5722] font-mono text-sm">→</span>
+                    <span className="text-[#C8522A] text-sm">→</span>
                   </a>
                 ))}
               </div>
 
               {/* Mobile Info Strip */}
-              <div className="space-y-4 text-sm font-mono text-[#F5EFE4]/80">
+              <div className="space-y-2 text-xs font-mono text-[#7A6F64]">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#FF5722]" />
-                  <span>{status.text} • {status.subtext}</span>
+                  <Clock className="w-3.5 h-3.5 text-[#C8522A]" />
+                  <span>{status.text} · {status.subtext}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#FF5722]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#C8522A]" />
                   <span>Chikhali, Pimpri-Chinchwad (Thermax Chowk)</span>
                 </div>
               </div>
@@ -160,18 +155,18 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <a
                   href={SAINIK_HOTEL_DATA.contact.phoneTel}
-                  className="w-full text-center bg-[#FF5722] text-[#121110] font-extrabold text-sm py-3 uppercase border-2 border-[#F5EFE4] shadow-[3px_3px_0px_#F5EFE4] flex items-center justify-center gap-2"
+                  className="w-full text-center bg-[#C8522A] text-[#FAF7F2] font-semibold text-xs py-3 uppercase tracking-wider rounded-md flex items-center justify-center gap-2"
                 >
-                  <Phone className="w-4 h-4 fill-current" />
+                  <Phone className="w-3.5 h-3.5 fill-current" />
                   <span>CALL</span>
                 </a>
                 <a
                   href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center bg-[#1C1A17] text-[#F5EFE4] font-extrabold text-sm py-3 uppercase border-2 border-[#F5EFE4] shadow-[3px_3px_0px_#FF5722] flex items-center justify-center gap-2"
+                  className="w-full text-center bg-[#F3ECE0] text-[#1D1B18] border border-[#1D1B18]/15 font-semibold text-xs py-3 uppercase tracking-wider rounded-md flex items-center justify-center gap-2"
                 >
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="w-3.5 h-3.5" />
                   <span>DIRECTIONS</span>
                 </a>
               </div>

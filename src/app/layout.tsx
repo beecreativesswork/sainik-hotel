@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { Syne, Bebas_Neue, Plus_Jakarta_Sans } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import NoiseOverlay from "@/components/NoiseOverlay";
 
-const syneFont = Syne({
+const playfairDisplay = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["700", "800"],
-});
-
-const bebasFont = Bebas_Neue({
-  variable: "--font-bebas",
-  subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -114,7 +109,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syneFont.variable} ${bebasFont.variable} ${jakartaSans.variable} scroll-smooth`}
+      className={`${playfairDisplay.variable} ${jakartaSans.variable} scroll-smooth`}
     >
       <head>
         <script
@@ -122,7 +117,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className="bg-[#121110] text-[#F5EFE4] antialiased selection:bg-[#FF5722] selection:text-[#121110] relative">
+      <body className="bg-[#FAF7F2] text-[#1D1B18] antialiased selection:bg-[#C8522A] selection:text-[#FAF7F2] relative font-body">
         <NoiseOverlay />
         {children}
       </body>
