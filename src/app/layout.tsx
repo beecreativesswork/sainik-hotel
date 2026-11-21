@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Bebas_Neue,
   DM_Sans,
@@ -8,6 +9,11 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import NoiseOverlay from "@/components/NoiseOverlay";
+import { MENU_ITEMS, SAINIK_HOTEL_DATA, SITE_URL, type MenuItem } from "@/data/hotelData";
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const canonicalUrl = SITE_URL;
+const heroImageUrl = `${SITE_URL}/images/hero_thali.jpg`;
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair",
@@ -42,28 +48,32 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 });
 
 export const metadata: Metadata = {
-  title: "Sainik Hotel — Authentic Maharashtrian & Dhaba Dining | Chikhali, Pimpri-Chinchwad",
-  description: "Sainik Hotel is a legendary local restaurant in Chikhali, Pimpri-Chinchwad (near Thermax Chowk). Serving authentic Maharashtrian thalis, Kolhapuri sukka, North Indian & Chinese dishes. ₹200–400 per person.",
+  metadataBase: new URL(SITE_URL),
+  title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
+  description: "Visit Sainik Hotel in Chikhali, Pimpri-Chinchwad for Maharashtrian thalis, Kolhapuri chicken sukka, North Indian meals and Chinese dishes. Call 088119 94491.",
   keywords: [
     "Sainik Hotel Chikhali",
-    "Restaurant in Chikhali",
-    "Hotel near Thermax Chowk",
-    "Restaurants in Pimpri-Chinchwad",
-    "Affordable restaurant in Chikhali",
-    "Maharashtrian Thali Chikhali",
-    "Kolhapuri Sukka Pimpri"
+    "Restaurant in Chikhali Pune",
+    "Maharashtrian restaurant in Chikhali",
+    "Non-vegetarian restaurant Chikhali",
+    "Kolhapuri chicken sukka Chikhali",
+    "Restaurant in Pimpri-Chinchwad",
   ],
   authors: [{ name: "Sainik Hotel" }],
+  alternates: {
+    canonical: canonicalUrl,
+  },
   openGraph: {
-    title: "Sainik Hotel — Good Food. No Nonsense.",
-    description: "Legendary roadside hotel dining in Chikhali, Pimpri-Chinchwad. Maharashtrian Thalis, North Indian, Chinese & Outdoor Seating.",
-    url: "https://sainikhotel.com",
+    title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
+    description: "Maharashtrian thalis, Kolhapuri chicken sukka, North Indian meals and Chinese dishes in Chikhali, Pimpri-Chinchwad.",
+    url: canonicalUrl,
     siteName: "Sainik Hotel",
     images: [
       {
-        url: "/images/hero_thali.png",
-        width: 1200,
-        height: 630,
+        url: "/images/hero_thali.jpg",
+        width: 1024,
+        height: 1024,
+        type: "image/jpeg",
         alt: "Sainik Hotel Thali Platter in Chikhali",
       },
     ],
@@ -72,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sainik Hotel — Chikhali, Pimpri-Chinchwad",
-    description: "Authentic roadside food, generous thalis, and great vibes in Chikhali.",
-    images: ["/images/hero_thali.png"],
+    title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
+    description: "Maharashtrian thalis, Kolhapuri chicken sukka and dhaba favourites in Chikhali, Pimpri-Chinchwad.",
+    images: ["/images/hero_thali.jpg"],
   },
   robots: {
     index: true,
@@ -82,48 +92,94 @@ export const metadata: Metadata = {
   },
 };
 
+const menuSectionNames: Record<MenuItem["category"], string> = {
+  thalis: "Thalis & Special Feasts",
+  maharashtrian: "Maharashtrian Specialities",
+  north_indian: "North Indian Curries & Breads",
+  chinese: "Chinese Wok & Starters",
+  snacks: "Snacks & Refreshments",
+  beverages: "Beverages & Coolers",
+};
+
+const menuSections = Array.from(new Set(MENU_ITEMS.map((item) => item.category))).map(
+  (category) => ({
+    "@type": "MenuSection",
+    name: menuSectionNames[category],
+    hasMenuItem: MENU_ITEMS.filter((item) => item.category === category).map((item) => ({
+      "@type": "MenuItem",
+      name: item.name,
+      description: item.description,
+      ...(item.image ? { image: `${SITE_URL}${item.image}` } : {}),
+    })),
+  }),
+);
+
 const jsonLdSchema = {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Sainik Hotel",
-  "image": "https://sainikhotel.com/images/hero_thali.png",
-  "@id": "https://sainikhotel.com",
-  "url": "https://sainikhotel.com",
-  "telephone": "08811994491",
-  "priceRange": "₹200-400",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "BhagyaLaxmi Thermo Dies & Pattern Pvt. Ltd, Mhetre Wadi, Hanuman Nagar",
-    "addressLocality": "Chikhali, Pimpri-Chinchwad",
-    "addressRegion": "Maharashtra",
-    "postalCode": "411062",
-    "addressCountry": "IN"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 18.6791,
-    "longitude": 73.8122
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.1",
-    "reviewCount": "195"
-  },
-  "servesCuisine": ["Maharashtrian", "North Indian", "Chinese", "Dhaba"],
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "11:00",
-      "closes": "16:00"
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: canonicalUrl,
+      name: SAINIK_HOTEL_DATA.brand,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${SITE_URL}/#restaurant` },
     },
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "19:00",
-      "closes": "23:00"
-    }
-  ]
+      "@type": "Restaurant",
+      "@id": `${SITE_URL}/#restaurant`,
+      name: SAINIK_HOTEL_DATA.brand,
+      url: canonicalUrl,
+      image: [heroImageUrl],
+      telephone: SAINIK_HOTEL_DATA.contact.phoneTel.replace(/^tel:/, ""),
+      priceRange: SAINIK_HOTEL_DATA.metrics.priceRange,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: `${SAINIK_HOTEL_DATA.address.line1}, ${SAINIK_HOTEL_DATA.address.line2}`,
+        addressLocality: `${SAINIK_HOTEL_DATA.address.area}, ${SAINIK_HOTEL_DATA.address.city}`,
+        addressRegion: SAINIK_HOTEL_DATA.address.state,
+        postalCode: SAINIK_HOTEL_DATA.address.pincode,
+        addressCountry: "IN",
+      },
+      servesCuisine: ["Maharashtrian", "North Indian", "Chinese"],
+      hasMap: SAINIK_HOTEL_DATA.address.googleMapsUrl,
+      sameAs: [SAINIK_HOTEL_DATA.contact.instagramUrl],
+      hasMenu: { "@id": `${SITE_URL}/#menu` },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          opens: SAINIK_HOTEL_DATA.schedule.lunch.start,
+          closes: SAINIK_HOTEL_DATA.schedule.lunch.end,
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          opens: SAINIK_HOTEL_DATA.schedule.dinner.start,
+          closes: SAINIK_HOTEL_DATA.schedule.dinner.end,
+        },
+      ],
+    },
+    {
+      "@type": "Menu",
+      "@id": `${SITE_URL}/#menu`,
+      name: `${SAINIK_HOTEL_DATA.brand} Menu`,
+      url: `${canonicalUrl}/#menu`,
+      hasMenuSection: menuSections,
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: canonicalUrl,
+        },
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -136,13 +192,29 @@ export default function RootLayout({
       lang="en"
       className={`${playfairDisplay.variable} ${bebasNeue.variable} ${dmSans.variable} ${lora.variable} ${notoSerifDevanagari.variable} scroll-smooth`}
     >
-      <head>
+      <body className="bg-[#FAF7F2] text-[#1D1B18] antialiased selection:bg-[#C8522A] selection:text-[#FAF7F2] relative font-body">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdSchema).replace(/</g, "\\u003c"),
+          }}
         />
-      </head>
-      <body className="bg-[#FAF7F2] text-[#1D1B18] antialiased selection:bg-[#C8522A] selection:text-[#FAF7F2] relative font-body">
+        {GA_MEASUREMENT_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = function(){ window.dataLayer.push(arguments); };
+                window.gtag('js', new Date());
+                window.gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});
+              `}
+            </Script>
+          </>
+        ) : null}
         <NoiseOverlay />
         {children}
       </body>

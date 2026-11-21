@@ -9,25 +9,29 @@ import { motion } from "framer-motion";
 export default function InstagramSection() {
   const instaPosts = [
     {
-      src: "/images/hero_thali.png",
+      src: "/images/hero_thali.jpg",
+      alt: "Sainik Hotel Maharashtrian thali platter",
       likes: "1,240",
       comments: "84",
       tag: "#SainikThali"
     },
     {
-      src: "/images/menu_sukka.png",
+      src: "/images/menu_sukka.jpg",
+      alt: "Kolhapuri chicken sukka served with bhakri",
       likes: "950",
       comments: "42",
       tag: "#KolhapuriSukka"
     },
     {
-      src: "/images/dining_rush.png",
+      src: "/images/dining_rush.jpg",
+      alt: "Outdoor dining at Sainik Hotel in Chikhali",
       likes: "1,820",
       comments: "110",
       tag: "#ChikhaliVibes"
     },
     {
-      src: "/images/menu_chinese.png",
+      src: "/images/menu_chinese.jpg",
+      alt: "Chinese wok dishes served at Sainik Hotel",
       likes: "780",
       comments: "39",
       tag: "#WokFired"
@@ -79,7 +83,7 @@ export default function InstagramSection() {
               <div className="relative aspect-square w-full rounded-xl overflow-hidden">
                 <Image
                   src={post.src}
-                  alt={`Sainik Hotel Instagram post ${idx + 1}`}
+                  alt={post.alt}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 50vw, 25vw"

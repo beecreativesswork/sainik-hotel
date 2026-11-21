@@ -1,3 +1,5 @@
+export const SITE_URL = "https://www.sainikhotel.in";
+
 export interface MenuItem {
   id: string;
   name: string;
@@ -39,7 +41,7 @@ export const SAINIK_HOTEL_DATA = {
     phoneTel: "tel:08811994491",
     instagramHandle: "@sainikhotel_official",
     instagramUrl: "https://instagram.com/sainikhotel_official",
-    website: "https://sainikhotel.com"
+    website: SITE_URL
   },
   metrics: {
     rating: 4.1,
@@ -73,7 +75,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Hearty full meal with signature rassa, bhakri, rice, chutney & fresh salad.",
     tag: "MOST POPULAR",
     featured: true,
-    image: "/images/hero_thali.png"
+    image: "/images/hero_thali.jpg"
   },
   {
     id: "kolhapuri-sukka",
@@ -82,7 +84,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Rich, spicy roasted Kolhapuri spices, succulent chicken & aromatic bhakri bread.",
     tag: "CHIKHALI FAVOURITE",
     featured: true,
-    image: "/images/menu_sukka.png"
+    image: "/images/menu_sukka.jpg"
   },
   {
     id: "chinese-plate",
@@ -91,7 +93,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Tossed over high flame with fresh greens, sizzling paneer chunks & secret house sauce.",
     tag: "CHINESE SPECIAL",
     featured: true,
-    image: "/images/menu_chinese.png"
+    image: "/images/menu_chinese.jpg"
   },
   {
     id: "paneer-butter",
@@ -100,7 +102,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Creamy tomato gravy with fresh paneer cubes and hot butter garlic naan.",
     tag: "CHEF RECOMMENDATION",
     featured: true,
-    image: "/images/menu_north_indian.png"
+    image: "/images/menu_north_indian.jpg"
   },
   {
     id: "kanda-bhajji",
@@ -109,7 +111,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Crispy fried sliced onion fritters paired with boiling hot spiced tea in glasses.",
     tag: "EVENING SPECIAL",
     featured: true,
-    image: "/images/menu_snacks.png"
+    image: "/images/menu_snacks.jpg"
   },
   {
     id: "tambda-pandhra",

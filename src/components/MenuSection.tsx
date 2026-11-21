@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { MENU_ITEMS, SAINIK_HOTEL_DATA } from "@/data/hotelData";
+import { trackDirectionsClick, trackPhoneClick } from "@/lib/analytics";
 import { Phone, UtensilsCrossed, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -118,6 +119,7 @@ export default function MenuSection() {
                     </p>
                     <a
                       href={SAINIK_HOTEL_DATA.contact.phoneTel}
+                      onClick={trackPhoneClick}
                       className="inline-flex items-center gap-1 font-body text-xs font-bold text-[#1D1B18] hover:text-[#C8522A] transition-colors"
                     >
                       ORDER <span aria-hidden="true">→</span>
@@ -202,6 +204,7 @@ export default function MenuSection() {
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
             <a
               href={SAINIK_HOTEL_DATA.contact.phoneTel}
+              onClick={trackPhoneClick}
               className="bg-[#C8522A] hover:bg-[#B34520] text-[#FAF7F2] font-semibold text-xs px-6 py-3 rounded-md uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
             >
               <Phone className="w-3.5 h-3.5 fill-current" />
@@ -210,6 +213,7 @@ export default function MenuSection() {
             
             <a
               href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
+              onClick={trackDirectionsClick}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#FAF7F2] hover:bg-[#EADBCE] text-[#1D1B18] font-semibold text-xs px-6 py-3 rounded-md uppercase tracking-wider transition-colors flex items-center justify-center gap-2"

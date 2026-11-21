@@ -1,6 +1,7 @@
 "use client";
 
 import { SAINIK_HOTEL_DATA } from "@/data/hotelData";
+import { trackDirectionsClick, trackPhoneClick } from "@/lib/analytics";
 import { Phone, Navigation, Flame, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -35,6 +36,7 @@ export default function CTASection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 max-w-md mx-auto">
           <a
             href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
+            onClick={trackDirectionsClick}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto bg-[#FAF7F2] hover:bg-[#F3ECE0] text-[#1D1B18] font-semibold text-xs py-4 px-8 rounded-md uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 font-body shadow-sm"
@@ -45,6 +47,7 @@ export default function CTASection() {
 
           <a
             href={SAINIK_HOTEL_DATA.contact.phoneTel}
+            onClick={trackPhoneClick}
             className="w-full sm:w-auto bg-[#1D1B18] hover:bg-[#2D2A26] text-[#FAF7F2] font-semibold text-xs py-4 px-8 rounded-md uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 font-body shadow-sm"
           >
             <Phone className="w-4 h-4 fill-current" />

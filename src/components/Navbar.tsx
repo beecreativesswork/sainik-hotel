@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { SAINIK_HOTEL_DATA, getLiveOperationalStatus } from "@/data/hotelData";
+import { trackDirectionsClick, trackMenuVisit, trackPhoneClick } from "@/lib/analytics";
 import { Phone, Menu as MenuIcon, X, Clock, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -69,6 +70,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={link.href === "#menu" ? trackMenuVisit : undefined}
                 className="text-xs font-semibold tracking-widest text-[#1D1B18]/80 hover:text-[#C8522A] transition-colors relative py-1"
               >
                 {link.name}
@@ -91,6 +93,7 @@ export default function Navbar() {
             {/* Call Now Button */}
             <a
               href={SAINIK_HOTEL_DATA.contact.phoneTel}
+              onClick={trackPhoneClick}
               className="inline-flex items-center gap-2 bg-[#C8522A] text-[#FAF7F2] hover:bg-[#B34520] font-semibold text-xs px-5 py-2.5 rounded-md uppercase tracking-wider transition-colors shadow-xs"
             >
               <Phone className="w-3.5 h-3.5 fill-current" />
@@ -133,7 +136,10 @@ export default function Navbar() {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      if (link.href === "#menu") trackMenuVisit();
+                      setIsOpen(false);
+                    }}
                     className="text-base font-semibold tracking-wider text-[#1D1B18] hover:text-[#C8522A] flex items-center justify-between py-1.5"
                   >
                     <span>{link.name}</span>
@@ -158,6 +164,7 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <a
                   href={SAINIK_HOTEL_DATA.contact.phoneTel}
+                  onClick={trackPhoneClick}
                   className="w-full text-center bg-[#C8522A] text-[#FAF7F2] font-semibold text-xs py-3 uppercase tracking-wider rounded-md flex items-center justify-center gap-2"
                 >
                   <Phone className="w-3.5 h-3.5 fill-current" />
@@ -165,6 +172,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
+                  onClick={trackDirectionsClick}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full text-center bg-[#F3ECE0] text-[#1D1B18] border border-[#1D1B18]/15 font-semibold text-xs py-3 uppercase tracking-wider rounded-md flex items-center justify-center gap-2"

@@ -1,6 +1,7 @@
 "use client";
 
 import { SAINIK_HOTEL_DATA } from "@/data/hotelData";
+import { trackDirectionsClick, trackPhoneClick } from "@/lib/analytics";
 import { MapPin, Navigation, Compass, ExternalLink, Phone, Building2 } from "lucide-react";
 
 export default function LocalSection() {
@@ -60,9 +61,13 @@ export default function LocalSection() {
             {/* Phone & Contact */}
             <div className="space-y-2 pt-6 border-t border-[#1D1B18]/10">
               <span className="font-mono text-[11px] font-bold text-[#C8522A] uppercase tracking-widest">CONTACT PHONE</span>
-              <p className="font-display font-bold text-xl text-[#1D1B18]">
+              <a
+                href={SAINIK_HOTEL_DATA.contact.phoneTel}
+                onClick={trackPhoneClick}
+                className="font-display font-bold text-xl text-[#1D1B18] hover:text-[#C8522A] transition-colors"
+              >
                 {SAINIK_HOTEL_DATA.contact.phoneDisplay}
-              </p>
+              </a>
               <p className="font-body text-xs text-[#7A6F64]">
                 Call ahead for table availability or takeaway orders.
               </p>
@@ -71,6 +76,7 @@ export default function LocalSection() {
             {/* Action Directions Button */}
             <a
               href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
+              onClick={trackDirectionsClick}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-[#C8522A] hover:bg-[#B34520] text-[#FAF7F2] font-semibold text-xs py-3.5 px-6 rounded-md uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 font-body shadow-xs"

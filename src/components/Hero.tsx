@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { SAINIK_HOTEL_DATA } from "@/data/hotelData";
+import { trackDirectionsClick, trackMenuVisit } from "@/lib/analytics";
 import { Star, MapPin, ArrowRight, Utensils } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -40,6 +41,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
               <a
                 href="#menu"
+                onClick={trackMenuVisit}
                 className="bg-[#C8522A] hover:bg-[#B34520] text-[#FAF7F2] font-semibold text-sm px-7 py-3.5 rounded-md uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2.5 shadow-sm font-body"
               >
                 <span>VIEW MENU</span>
@@ -48,6 +50,7 @@ export default function Hero() {
 
               <a
                 href={SAINIK_HOTEL_DATA.address.googleMapsUrl}
+                onClick={trackDirectionsClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#F3ECE0] hover:bg-[#EADBCE] text-[#1D1B18] border border-[#1D1B18]/15 font-semibold text-sm px-7 py-3.5 rounded-md uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 font-body"
@@ -79,10 +82,10 @@ export default function Hero() {
           >
             <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-xl border border-[#1D1B18]/10 group">
               <Image
-                src="/images/hero_thali.png"
+                src="/images/hero_thali.jpg"
                 alt="Authentic Sainik Hotel Thali Platter in Chikhali"
                 fill
-                priority
+                preload
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />

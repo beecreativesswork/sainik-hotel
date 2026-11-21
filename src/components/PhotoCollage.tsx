@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function PhotoCollage() {
   const photos = [
     {
-      src: "/images/hero_thali.png",
+      src: "/images/hero_thali.jpg",
       alt: "Sainik Hotel Signature Thali Platter",
       caption: "SIGNATURE THALI",
       location: "CHIKHALI",
@@ -15,7 +15,7 @@ export default function PhotoCollage() {
       aspect: "aspect-[16/10]",
     },
     {
-      src: "/images/menu_sukka.png",
+      src: "/images/menu_sukka.jpg",
       alt: "Kolhapuri Chicken Sukka & Bhakri",
       caption: "HOT & FRESH",
       location: "KOLHAPURI SPICE",
@@ -23,7 +23,7 @@ export default function PhotoCollage() {
       aspect: "aspect-[4/3]",
     },
     {
-      src: "/images/dining_rush.png",
+      src: "/images/dining_rush.jpg",
       alt: "Outdoor dining rush at Sainik Hotel",
       caption: "OUTDOOR DINING",
       location: "CHIKHALI ATMOSPHERE",
@@ -31,7 +31,7 @@ export default function PhotoCollage() {
       aspect: "aspect-[4/3]",
     },
     {
-      src: "/images/menu_chinese.png",
+      src: "/images/menu_chinese.jpg",
       alt: "Wok Fired Hakka Noodles and Paneer Chilli",
       caption: "CHINESE SPECIALS",
       location: "WOK SELECTION",

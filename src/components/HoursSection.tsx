@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { SAINIK_HOTEL_DATA, getLiveOperationalStatus } from "@/data/hotelData";
+import { trackPhoneClick } from "@/lib/analytics";
 import { Clock, Sun, Moon, Truck, Calendar, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -123,6 +124,7 @@ export default function HoursSection() {
           </div>
           <a
             href={SAINIK_HOTEL_DATA.contact.phoneTel}
+            onClick={trackPhoneClick}
             className="inline-flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#C8522A]/10 hover:bg-[#C8522A] text-[#C8522A] hover:text-[#FAF7F2] font-body text-[11px] sm:text-xs font-bold transition-colors"
           >
             <Phone className="w-4 h-4 fill-current" />

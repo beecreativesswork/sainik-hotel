@@ -93,7 +93,7 @@ export default function ExperienceSection() {
           >
             <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-lg border border-[#1D1B18]/10 group">
               <Image
-                src="/images/dining_rush.png"
+                src="/images/dining_rush.jpg"
                 alt="Outdoor dining rush at Sainik Hotel Chikhali"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

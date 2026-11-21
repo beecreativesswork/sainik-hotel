@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { SAINIK_HOTEL_DATA } from "@/data/hotelData";
+import { trackMenuVisit, trackPhoneClick } from "@/lib/analytics";
 import { Phone, MapPin, ArrowUp } from "lucide-react";
 import InstagramIcon from "@/components/InstagramIcon";
 
@@ -50,7 +51,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#C8522A] shrink-0" />
-                <a href={SAINIK_HOTEL_DATA.contact.phoneTel} className="hover:text-[#C8522A] transition-colors font-semibold">
+                <a
+                  href={SAINIK_HOTEL_DATA.contact.phoneTel}
+                  onClick={trackPhoneClick}
+                  className="hover:text-[#C8522A] transition-colors font-semibold"
+                >
                   {SAINIK_HOTEL_DATA.contact.phoneDisplay}
                 </a>
               </div>
@@ -75,7 +80,11 @@ export default function Footer() {
             </span>
             <ul className="space-y-2 font-body text-xs text-[#A89F91]">
               <li>
-                <a href="#menu" className="hover:text-[#FAF7F2] transition-colors">
+                <a
+                  href="#menu"
+                  onClick={trackMenuVisit}
+                  className="hover:text-[#FAF7F2] transition-colors"
+                >
                   Full Restaurant Menu
                 </a>
               </li>
