@@ -159,6 +159,31 @@ const galleryImages = [
     alt: "Mutton thali top view",
     caption: "The plate that started it all",
   },
+  {
+    image: "/images/reference/sainik-special-platter.jpg",
+    alt: "A spicy meat dish served on a black platter",
+    caption: "A Kolhapuri special, served hot",
+  },
+  {
+    image: "/images/reference/sainik-thali-curry.jpg",
+    alt: "A thali with curry, rice, bhakri and accompaniments",
+    caption: "Bhakri, rice and rassa",
+  },
+  {
+    image: "/images/reference/sainik-curry-selection.jpg",
+    alt: "A close view of curries, rice and thali accompaniments",
+    caption: "A little bit of everything",
+  },
+  {
+    image: "/images/reference/sainik-fish-thali.jpg",
+    alt: "Fish served with rice, bhakri and curries",
+    caption: "Fish thali, full spread",
+  },
+  {
+    image: "/images/reference/sainik-thali-assortment.jpg",
+    alt: "A Kolhapuri thali with several curries and sides",
+    caption: "Every curry has a place",
+  },
 ];
 
 const heroImages = [
@@ -199,6 +224,7 @@ export default function SainikExperience() {
   const glowRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const emberRef = useRef<HTMLCanvasElement>(null);
+  const tablesRef = useRef<HTMLElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
 
   const visibleDishes = menuDishes.filter(
@@ -277,26 +303,54 @@ export default function SainikExperience() {
   }, []);
 
   useEffect(() => {
+    const section = tablesRef.current;
     const gallery = galleryRef.current;
-    if (!gallery) return;
+    if (!section || !gallery) return;
 
+    let animationFrame = 0;
+    const updateGallery = () => {
+      const distance = Math.max(0, gallery.scrollWidth - gallery.clientWidth);
+      const zoom = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).getPropertyValue("zoom"),
+      ) || 1;
+      section.style.setProperty("--tables-scroll-distance", `${distance / zoom}px`);
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const progress = distance === 0
+        ? 0
+        : Math.min(1, Math.max(0, (window.scrollY - sectionTop) / distance));
+      gallery.scrollLeft = distance * progress;
+    };
+    const scheduleUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        updateGallery();
+      });
+    };
     const handleWheel = (event: WheelEvent) => {
       if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-      const canScrollLeft = gallery.scrollLeft > 0;
-      const canScrollRight = gallery.scrollLeft + gallery.clientWidth < gallery.scrollWidth - 1;
-      if ((event.deltaY < 0 && !canScrollLeft) || (event.deltaY > 0 && !canScrollRight)) return;
+      const scrollElement = document.scrollingElement;
+      if (!scrollElement) return;
 
       const delta = event.deltaMode === WheelEvent.DOM_DELTA_LINE
         ? event.deltaY * 16
         : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
-          ? event.deltaY * gallery.clientWidth
+          ? event.deltaY * window.innerHeight
           : event.deltaY;
       event.preventDefault();
-      gallery.scrollLeft += delta;
+      scrollElement.scrollTop += delta;
     };
 
+    updateGallery();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
     gallery.addEventListener("wheel", handleWheel, { passive: false });
-    return () => gallery.removeEventListener("wheel", handleWheel);
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      gallery.removeEventListener("wheel", handleWheel);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   useEffect(() => {
@@ -385,7 +439,16 @@ export default function SainikExperience() {
       <div id="glow" ref={glowRef} aria-hidden="true" />
 
       <nav aria-label="Main navigation">
-        <a href="#top" className="logo"><i />Sainik Hotel</a>
+        <a href="#top" className="logo" aria-label="Sainik Hotel">
+          <Image
+            src="/images/sainik-soldier-mark.png"
+            alt=""
+            width={34}
+            height={34}
+            className="logo-mark"
+          />
+          <span lang="mr">सैनिक हॉटेल</span>
+        </a>
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#thalis">Thalis</a></li>
@@ -588,17 +651,19 @@ export default function SainikExperience() {
         </div>
       </section>
 
-      <section id="tables">
-        <div className="wrap"><div className="eyebrow rv">Full house, every day</div><h2 className="rv">Tables of <em>regulars</em></h2></div>
-        <div className="strip" ref={galleryRef} tabIndex={0} aria-label="Photo gallery. Scroll horizontally to view more photos.">
-          {galleryImages.map((image) => (
-            <figure key={image.alt}>
-              <div className="gallery-photo">
-                <Image src={image.image} alt={image.alt} fill sizes="(max-width: 860px) 68vw, 430px" loading="lazy" />
-              </div>
-              <figcaption>{image.caption}</figcaption>
-            </figure>
-          ))}
+      <section id="tables" ref={tablesRef}>
+        <div className="tables-pin">
+          <div className="wrap"><div className="eyebrow rv">Full house, every day</div><h2 className="rv">Tables of <em>regulars</em></h2></div>
+          <div className="strip" ref={galleryRef} tabIndex={0} aria-label="Photo gallery. Scroll down to move horizontally through the photos.">
+            {galleryImages.map((image) => (
+              <figure key={image.alt}>
+                <div className="gallery-photo">
+                  <Image src={image.image} alt={image.alt} fill sizes="(max-width: 860px) 68vw, 430px" loading="lazy" />
+                </div>
+                <figcaption>{image.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 

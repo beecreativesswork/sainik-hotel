@@ -30,8 +30,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 /* nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;
   padding:calc(14px + env(safe-area-inset-top,0px)) 5vw 14px;background:linear-gradient(var(--ink),transparent);backdrop-filter:blur(2px)}
-nav .logo{font-family:var(--d);font-size:22px;display:flex;gap:10px;align-items:center}
-nav .logo i{width:10px;height:10px;border-radius:50%;background:var(--blood);box-shadow:0 0 14px var(--blood)}
+nav .logo{font-family:var(--d);font-size:18px;line-height:1;color:var(--bone);display:flex;flex-direction:column;gap:2px;align-items:center}
+nav .logo-mark{width:34px;height:34px;object-fit:contain;filter:brightness(1.6)}
+nav .logo span{white-space:nowrap}
 nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-family:var(--m);font-size:12px;letter-spacing:.15em;text-transform:uppercase}
 nav ul a{opacity:.75;transition:.2s}nav ul a:hover{opacity:1;color:var(--turmeric)}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:99px;background:var(--blood);color:#fff;font-weight:700;letter-spacing:.04em;border:0;cursor:pointer;font-family:var(--b);font-size:16px;transition:.25s;position:relative;overflow:hidden}
@@ -251,10 +252,12 @@ blockquote cite{display:block;margin-top:16px;font-style:normal;font-family:var(
 .h1 .f{letter-spacing:0;line-height:1.25;padding-top:.1em}
 
 /* gallery */
-#tables{padding:100px 0 80px;overflow:hidden}
+#tables{height:calc(100vh + var(--tables-scroll-distance,0px));position:relative;padding:0;overflow:clip}
+.tables-pin{height:100vh;position:sticky;top:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:24px 0 0}
 #tables h2{font-size:clamp(36px,5.5vw,78px)}
-.strip{display:flex;gap:18px;overflow-x:auto;padding:24px 5vw 40px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--blood) transparent}
-.strip figure{margin:0;flex:0 0 min(68vw,430px);scroll-snap-align:center;position:relative}
+.strip{display:flex;gap:18px;flex:0 0 auto;overflow-x:auto;overflow-y:hidden;padding:24px 5vw 40px;scroll-snap-type:none;scrollbar-width:none;overscroll-behavior-x:contain}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{margin:0;flex:0 0 min(68vw,430px,60vh);position:relative}
 .gallery-photo{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:22px}
 .gallery-photo img{object-fit:cover}
 .strip figure:nth-child(even){margin-top:46px}
