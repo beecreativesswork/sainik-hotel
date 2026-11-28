@@ -1,7 +1,7 @@
 "use client";
 
 import { GOOGLE_REVIEWS, SAINIK_HOTEL_DATA } from "@/data/hotelData";
-import { Star, Quote, CheckCircle2, MessageSquare } from "lucide-react";
+import { Star, CheckCircle2, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ReviewsSection() {
@@ -51,7 +51,7 @@ export default function ReviewsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08 }}
-              className="p-8 rounded-2xl bg-[#F3ECE0]/50 border border-[#1D1B18]/10 flex flex-col justify-between space-y-6 hover:border-[#C8522A]/30 transition-colors"
+              className="p-8 rounded-2xl bg-[#C8522A] border border-[#1D1B18]/10 flex flex-col justify-between space-y-6 hover:border-[#FAF7F2]/60 transition-colors"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -60,26 +60,26 @@ export default function ReviewsSection() {
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
-                  <span className="font-promo text-base text-[#C8522A] uppercase tracking-wider">
+                  <span className="font-promo text-base text-[#FAF7F2] uppercase tracking-wider">
                     {rev.tag}
                   </span>
                 </div>
 
-                <p className="font-editorial type-quote italic text-[#1D1B18]">
+                <p className="font-editorial type-quote italic text-[#FAF7F2]">
                   &ldquo;{rev.text}&rdquo;
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#1D1B18]/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#FAF7F2]/25 flex items-center justify-between">
                 <div>
-                  <h3 className="font-body font-bold text-sm text-[#1D1B18]">
+                  <h3 className="font-body font-bold text-sm text-[#FAF7F2]">
                     {rev.author}
                   </h3>
-                  <span className="font-mono text-[10px] text-[#7A6F64]">
+                  <span className="font-mono text-[10px] text-[#FAF7F2]/75">
                     {rev.date} · Verified Google Diner
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-1 text-[11px] font-mono text-[#2D4030] font-bold bg-[#2D4030]/10 px-2.5 py-1 rounded-full">
+                <div className="inline-flex items-center gap-1 text-[11px] font-mono text-[#FAF7F2] font-bold bg-[#FAF7F2]/15 px-2.5 py-1 rounded-full">
                   <CheckCircle2 className="w-3 h-3" />
                   <span>{rev.badge}</span>
                 </div>

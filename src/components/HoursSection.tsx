@@ -4,23 +4,24 @@ import { useState, useEffect } from "react";
 import { SAINIK_HOTEL_DATA, getLiveOperationalStatus } from "@/data/hotelData";
 import { trackPhoneClick } from "@/lib/analytics";
 import { Clock, Sun, Moon, Truck, Calendar, Phone } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function HoursSection() {
   const [status, setStatus] = useState({ isOpen: true, text: "OPEN NOW", subtext: "Serving Today" });
   const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
-    setStatus(getLiveOperationalStatus());
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));
       setStatus(getLiveOperationalStatus());
     };
 
-    updateTime();
+    const initialUpdate = window.setTimeout(updateTime, 0);
     const interval = setInterval(updateTime, 60000);
-    return () => clearInterval(interval);
+    return () => {
+      window.clearTimeout(initialUpdate);
+      clearInterval(interval);
+    };
   }, []);
 
   return (

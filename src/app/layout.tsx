@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import {
-  Bebas_Neue,
-  DM_Sans,
-  Lora,
-  Noto_Serif_Devanagari,
-  Playfair_Display,
-} from "next/font/google";
 import "./globals.css";
 import NoiseOverlay from "@/components/NoiseOverlay";
 import { MENU_ITEMS, SAINIK_HOTEL_DATA, SITE_URL, type MenuItem } from "@/data/hotelData";
@@ -14,38 +7,6 @@ import { MENU_ITEMS, SAINIK_HOTEL_DATA, SITE_URL, type MenuItem } from "@/data/h
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const canonicalUrl = SITE_URL;
 const heroImageUrl = `${SITE_URL}/images/hero_thali.jpg`;
-
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-});
-
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  variable: "--font-noto-devanagari",
-  subsets: ["devanagari"],
-  weight: "700",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -190,7 +151,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfairDisplay.variable} ${bebasNeue.variable} ${dmSans.variable} ${lora.variable} ${notoSerifDevanagari.variable} scroll-smooth`}
+      className="scroll-smooth"
     >
       <body className="bg-[#FAF7F2] text-[#1D1B18] antialiased selection:bg-[#C8522A] selection:text-[#FAF7F2] relative font-body">
         <script

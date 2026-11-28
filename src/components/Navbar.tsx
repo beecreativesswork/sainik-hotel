@@ -13,7 +13,9 @@ export default function Navbar() {
   const [status, setStatus] = useState({ isOpen: true, text: "OPEN NOW", subtext: "Serving Today" });
 
   useEffect(() => {
-    setStatus(getLiveOperationalStatus());
+    const initialUpdate = window.setTimeout(() => {
+      setStatus(getLiveOperationalStatus());
+    }, 0);
     const interval = setInterval(() => {
       setStatus(getLiveOperationalStatus());
     }, 60000);
@@ -24,6 +26,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => {
+      window.clearTimeout(initialUpdate);
       clearInterval(interval);
       window.removeEventListener("scroll", handleScroll);
     };

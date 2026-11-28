@@ -2,11 +2,11 @@
 
 @layer base {
   :root {
-    --font-display: var(--font-playfair), Georgia, serif;
-    --font-body: var(--font-dm-sans), sans-serif;
-    --font-promo: var(--font-bebas), Impact, sans-serif;
-    --font-editorial: var(--font-lora), Georgia, serif;
-    --font-logo-native: var(--font-noto-devanagari), sans-serif;
+    --font-display: Georgia, "Times New Roman", serif;
+    --font-body: "Segoe UI", Arial, sans-serif;
+    --font-promo: Impact, "Arial Narrow", sans-serif;
+    --font-editorial: Georgia, "Times New Roman", serif;
+    --font-logo-native: "Noto Sans Devanagari", "Mangal", sans-serif;
     --bg-cream: #FAF7F2;
     --bg-card: #F3ECE0;
     --dark-charcoal: #1D1B18;
