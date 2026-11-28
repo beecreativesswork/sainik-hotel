@@ -1,17 +1,36 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Hind, Space_Mono, Yatra_One } from "next/font/google";
 import "./globals.css";
-import NoiseOverlay from "@/components/NoiseOverlay";
 import { MENU_ITEMS, SAINIK_HOTEL_DATA, SITE_URL, type MenuItem } from "@/data/hotelData";
+
+const yatraOne = Yatra_One({
+  subsets: ["devanagari", "latin"],
+  weight: "400",
+  variable: "--font-yatra-one",
+  display: "swap",
+});
+const hind = Hind({
+  subsets: ["devanagari", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hind",
+  display: "swap",
+});
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const canonicalUrl = SITE_URL;
-const heroImageUrl = `${SITE_URL}/images/hero_thali.jpg`;
+const heroImageUrl = `${SITE_URL}/images/reference/mutton-thali.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
-  description: "Visit Sainik Hotel in Chikhali, Pimpri-Chinchwad for Maharashtrian thalis, Kolhapuri chicken sukka, North Indian meals and Chinese dishes. Call 088119 94491.",
+  title: "Sainik Hotel — सैनिक हॉटेल | Kolhapuri Thali, Fired Up",
+  description: "Sainik Hotel — fiery Kolhapuri mutton and fish thalis with tambda & pandhra rassa. Since 2019.",
   keywords: [
     "Sainik Hotel Chikhali",
     "Restaurant in Chikhali Pune",
@@ -25,13 +44,13 @@ export const metadata: Metadata = {
     canonical: canonicalUrl,
   },
   openGraph: {
-    title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
-    description: "Maharashtrian thalis, Kolhapuri chicken sukka, North Indian meals and Chinese dishes in Chikhali, Pimpri-Chinchwad.",
+    title: "Sainik Hotel — सैनिक हॉटेल | Kolhapuri Thali, Fired Up",
+    description: "Sainik Hotel — fiery Kolhapuri mutton and fish thalis with tambda & pandhra rassa. Since 2019.",
     url: canonicalUrl,
     siteName: "Sainik Hotel",
     images: [
       {
-        url: "/images/hero_thali.jpg",
+        url: "/images/reference/mutton-thali.jpg",
         width: 1024,
         height: 1024,
         type: "image/jpeg",
@@ -43,9 +62,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sainik Hotel Chikhali | Maharashtrian & Dhaba Restaurant",
-    description: "Maharashtrian thalis, Kolhapuri chicken sukka and dhaba favourites in Chikhali, Pimpri-Chinchwad.",
-    images: ["/images/hero_thali.jpg"],
+    title: "Sainik Hotel — सैनिक हॉटेल | Kolhapuri Thali, Fired Up",
+    description: "Sainik Hotel — fiery Kolhapuri mutton and fish thalis with tambda & pandhra rassa. Since 2019.",
+    images: ["/images/reference/mutton-thali.jpg"],
   },
   robots: {
     index: true,
@@ -149,11 +168,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="scroll-smooth"
-    >
-      <body className="bg-[#FAF7F2] text-[#1D1B18] antialiased selection:bg-[#C8522A] selection:text-[#FAF7F2] relative font-body">
+    <html lang="en" className={`${yatraOne.variable} ${hind.variable} ${spaceMono.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -176,7 +192,6 @@ export default function RootLayout({
             </Script>
           </>
         ) : null}
-        <NoiseOverlay />
         {children}
       </body>
     </html>
